@@ -1,0 +1,24 @@
+/* .dashboard__top {
+  background: linear-gradient(to bottom right, #2b96e9, #d4aef6);
+}
+
+.bar {
+  background: linear-gradient(to bottom right, #2b96e9, #d4aef6);
+}
+
+.breathing {
+  background-color: #2a4365;
+
+  animation: 5s infinite alternate ease-out breathing-color--dark;
+}
+
+@keyframes breathing-color--dark {
+  from {
+    background-color: #2a4365;
+  }
+  to {
+    background-color: #dd6b20;
+  }
+}
+
+bg-gradient-to-b from-blue-900 to-blue-600 */
