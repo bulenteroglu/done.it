@@ -27,6 +27,8 @@ mongoose.connect(
 );
 
 // set up routes
+app.use("/users", require("./routes/userRouter"));
+app.use("/todos", require("./routes/todoRouter"));
 
 if (process.env.NODE_ENV === "production") {
   // Set static folder
@@ -40,6 +42,3 @@ if (process.env.NODE_ENV === "production") {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`The server has started on port: ${PORT}`));
-
-app.use("/users", require("./routes/userRouter"));
-app.use("/todos", require("./routes/todoRouter"));
