@@ -8,7 +8,6 @@ import "./Dashboard.css";
 function Dashboard() {
   const history = useHistory();
   const { userData, setUserData } = useContext(UserContext);
-
   const [allTasks, setAllTasks] = useState([]);
   const [allDoneTasks, setAllDoneTasks] = useState([]);
   const [percentage, setPercentage] = useState(0);
@@ -30,14 +29,8 @@ function Dashboard() {
         },
       };
 
-      const getAllTodo = await Axios.get(
-        "http://localhost:5000/todos/all",
-        options
-      );
-      const getAllDoneTodo = await Axios.get(
-        "http://localhost:5000/todos/all/done",
-        options
-      );
+      const getAllTodo = await Axios.get("todos/all", options);
+      const getAllDoneTodo = await Axios.get("todos/all/done", options);
       setAllTasks(getAllTodo.data);
       setAllDoneTasks(getAllDoneTodo.data);
     };
