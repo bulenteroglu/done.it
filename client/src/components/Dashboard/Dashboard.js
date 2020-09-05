@@ -4,6 +4,8 @@ import { useHistory, Link } from "react-router-dom";
 import TaskItem from "../Tasks/TaskItem";
 import Axios from "axios";
 import "./Dashboard.css";
+import moment from "moment";
+import Pusher from "pusher-js";
 
 function Dashboard() {
   const history = useHistory();
@@ -11,6 +13,83 @@ function Dashboard() {
   const [allTasks, setAllTasks] = useState([]);
   const [allDoneTasks, setAllDoneTasks] = useState([]);
   const [percentage, setPercentage] = useState(0);
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState();
+
+  useEffect(() => {
+    const options = {
+      headers: {
+        "X-auth-token": localStorage.getItem("auth-token"),
+      },
+    };
+
+    Axios.get("todos/all", options).then((response) => {
+      setAllTasks(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    const options = {
+      headers: {
+        "X-auth-token": localStorage.getItem("auth-token"),
+      },
+    };
+    Axios.get("todos/all/done", options).then((response) => {
+      setAllDoneTasks(response.data);
+    });
+  }, [allTasks]);
+
+  useEffect(() => {
+    let a = allTasks.length;
+
+    let b = allDoneTasks.length;
+
+    let calculate = Math.round((b / a) * 100);
+
+    let checkFinite = Number.isFinite(calculate);
+
+    if (checkFinite) {
+      setPercentage(calculate);
+    }
+
+    console.log("ALL TASK: " + a);
+    console.log("ALL DONE: " + b);
+    console.log("PERCENTAGE: " + calculate);
+  }, [allDoneTasks]);
+
+  useEffect(() => {
+    const pusher = new Pusher("e1f1d6a2b99b78cc4995", {
+      cluster: "eu",
+    });
+
+    const channel = pusher.subscribe("todos");
+    channel.bind("inserted", (newTodo) => {
+      setAllTasks([...allTasks, newTodo]);
+    });
+
+    return () => {
+      channel.unbind_all();
+      channel.unsubscribe();
+    };
+  }, [allTasks]);
+
+  useEffect(() => {
+    allTasks.map((task) => {
+      const check = moment(task.startTime).isBefore(
+        moment(new Date()).format("YYYY-MM-DD")
+      );
+
+      if (check) {
+        const options = {
+          headers: {
+            "X-auth-token": localStorage.getItem("auth-token"),
+          },
+        };
+
+        Axios.delete(`todos/${task._id}`, options);
+      }
+    });
+  }, [allTasks]);
 
   const handleSignOut = () => {
     setUserData({
@@ -20,37 +99,6 @@ function Dashboard() {
     localStorage.setItem("auth-token", "");
     history.push("/");
   };
-
-  useEffect(() => {
-    const fetchAPI = async () => {
-      const options = {
-        headers: {
-          "X-auth-token": localStorage.getItem("auth-token"),
-        },
-      };
-
-      const getAllTodo = await Axios.get("todos/all", options);
-      const getAllDoneTodo = await Axios.get("todos/all/done", options);
-      setAllTasks(getAllTodo.data);
-      setAllDoneTasks(getAllDoneTodo.data);
-    };
-
-    fetchAPI();
-  }, []);
-
-  useEffect(() => {
-    let a = allTasks.length;
-    let b = allDoneTasks.length;
-
-    let calculate = Math.round((b / a) * 100);
-
-    let checkFinite = Number.isFinite(calculate);
-
-    if (checkFinite) {
-      setPercentage(calculate);
-      console.log(calculate);
-    }
-  }, [allDoneTasks]);
 
   return (
     <div className="flex flex-col h-screen bg-gradient-to-b from-blue-900 to-blue-600">
@@ -75,8 +123,9 @@ function Dashboard() {
         <div className="flex justify-center mt-12 items-center">
           <div className="flex flex-col">
             <div className="uppercase text-white text-xs font-semibold tracking-widest">
-              task completed
+              tasks completed
             </div>
+
             <div className="mt-3 h-1 w-full bg-black rounded-lg bg-opacity-25">
               <div
                 className="h-1 bg-gradient-to-r from-blue-200  to-indigo-400 rounded transition-all duration-1000"

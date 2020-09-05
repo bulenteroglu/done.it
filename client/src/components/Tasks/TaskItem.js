@@ -33,23 +33,22 @@ function TaskItem({ task, toggleTest }) {
     setToggle(!toggle);
   };
 
-  // useEffect(() => {
-  //   const options = {
-  //     headers: {
-  //       "X-auth-token": localStorage.getItem("auth-token"),
-  //     },
-  //   };
+  useEffect(() => {
+    const options = {
+      headers: {
+        "X-auth-token": localStorage.getItem("auth-token"),
+      },
+    };
 
-  //   const fetchAPI = async () => {
-  //     const response = await Axios.put(
-  //       `/todos/done/${task._id}`,
-  //       { done: toggle },
-  //       options
-  //     );
-  //     setDone(response.data.done);
-  //   };
-  //   fetchAPI();
-  // }, [toggle]);
+    const fetchAPI = async () => {
+      const response = await Axios.put(
+        `/todos/done/${task._id}`,
+        { done: toggle },
+        options
+      );
+    };
+    fetchAPI();
+  }, [toggle]);
 
   return (
     <div
@@ -81,7 +80,7 @@ function TaskItem({ task, toggleTest }) {
           <div className="cursor-pointer">
             {!toggle ? (
               <svg
-                // onClick={tempClick}
+                onClick={tempClick}
                 className="w-5 fill-current pb-1 mr-5"
                 id="icon-checkmark"
                 viewBox="0 0 24 24"
@@ -90,7 +89,7 @@ function TaskItem({ task, toggleTest }) {
               </svg>
             ) : (
               <svg
-                // onClick={tempClick}
+                onClick={tempClick}
                 className="w-5 fill-current pb-1 mr-5"
                 id="icon-undo"
                 viewBox="0 0 24 24"

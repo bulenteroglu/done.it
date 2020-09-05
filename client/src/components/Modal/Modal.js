@@ -122,6 +122,7 @@ function Modal({ onClick }) {
                     selected={date}
                     onChange={(date) => setDate(date)}
                     dateFormat="MMM d, YYY"
+                    minDate={moment().toDate()}
                     className="bg-gray-200 tracking-tighter text-gray-900 font-semibold focus:outline-none  w-full "
                   />
                   <svg className="w-5" id="icon-calendar" viewBox="0 0 24 24">
@@ -166,7 +167,6 @@ function Modal({ onClick }) {
                       onChange={(date) => setEndTime(date)}
                       showTimeSelect
                       showTimeSelectOnly
-                      timeIntervals={60}
                       timeCaption="Time"
                       dateFormat="h:mm aa"
                       className="bg-gray-200 tracking-tighter text-gray-900 font-semibold focus:outline-none  w-full "

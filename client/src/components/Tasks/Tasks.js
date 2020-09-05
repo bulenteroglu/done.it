@@ -55,42 +55,6 @@ function Tasks() {
     }
   };
 
-  // useEffect(() => {
-  //   const calculatePercentage = () => {
-  //   let a = tasks.length;
-  //   let b = doneTask.length;
-
-  //   let calculate = Math.round((b / a) * 100);
-
-  //   let checkFinite = Number.isFinite(calculate);
-
-  //   if (checkFinite) {
-  //     setPercentage(calculate);
-  //   }
-  // };
-
-  //   calculatePercentage();
-  // }, [done]);
-
-  // useEffect(() => {
-  //   const fetch = async () => {
-  //     const body = { date: moment(date).format("MMMM Do YYYY") };
-
-  //     const api = {
-  //       "X-auth-token": localStorage.getItem("auth-token"),
-  //     };
-
-  //     const getAllDone = await Axios.put("todos/all/done", body, {
-  //       headers: api,
-  //     });
-
-  //     setDoneTask(getAllDone.data);
-  //     console.log(getAllDone.data);
-  //   };
-
-  //   fetch();
-  // }, [done]);
-
   const callAPI = () => {
     try {
       const fetchAPI = async () => {

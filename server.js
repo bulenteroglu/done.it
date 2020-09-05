@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 const path = require("path");
+const Pusher = require("pusher");
 
 // set up express
 const app = express();
@@ -22,9 +23,45 @@ mongoose.connect(
   },
   (err) => {
     if (err) throw err;
-    console.log("MongoDB connection established");
   }
 );
+
+const pusher = new Pusher({
+  appId: "1067329",
+  key: "e1f1d6a2b99b78cc4995",
+  secret: "cc7fb6dc38a4dfac3ae8",
+  cluster: "eu",
+  encrypted: true,
+});
+
+const db = mongoose.connection;
+
+db.once("open", () => {
+  console.log("db connected");
+
+  const todoCollection = db.collection("todos");
+  const changeStream = todoCollection.watch();
+
+  changeStream.on("change", (change) => {
+    console.log(change);
+
+    if (change.operationType === "insert") {
+      const todoDetail = change.fullDocument;
+      console.log(todoDetail);
+      pusher.trigger("todos", "inserted", {
+        _id: todoDetail._id,
+        title: todoDetail.title,
+        date: todoDetail.date,
+        startTime: todoDetail.startTime,
+        endTime: todoDetail.endTime,
+        done: todoDetail.done,
+        description: todoDetail.description,
+        catagory: todoDetail.catagory,
+        userId: todoDetail.userId,
+      });
+    }
+  });
+});
 
 // set up routes
 app.use("/users", require("./routes/userRouter"));

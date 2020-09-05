@@ -5,7 +5,15 @@ const moment = require("moment");
 
 router.post("/", auth, async (req, res) => {
   try {
-    const { title, date, startTime, endTime, description, catagory } = req.body;
+    const {
+      title,
+      date,
+      startTime,
+      endTime,
+      description,
+      catagory,
+      done,
+    } = req.body;
 
     // validation
 
@@ -28,7 +36,7 @@ router.post("/", auth, async (req, res) => {
       date: moment(date).format("MMMM Do YYYY"),
       startTime,
       endTime,
-      done: false,
+      done,
       description,
       catagory,
       userId: req.user,
