@@ -2,7 +2,7 @@ import React from "react";
 
 function ErrorNotification(props) {
   return (
-    <div className="flex bg-red-200 rounded-lg p-2 items-center">
+    <div className="flex bg-red-200 rounded-lg p-2 items-center ">
       <div className="text-red-500">
         <svg
           onClick={props.clearError}
