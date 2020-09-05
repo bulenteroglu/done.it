@@ -3,11 +3,13 @@ import Moment from "react-moment";
 import DeleteModal from "../Modal/DeleteModal";
 import Axios from "axios";
 
-function TaskItem({ task, toggleTest }) {
+function TaskItem({ task, toggleTest, setTasks, tasks }) {
   const [colour, setColour] = useState();
   const [modal, setModal] = useState(false);
 
   const [toggle, setToggle] = useState(toggleTest);
+
+  console.log(tasks);
 
   useEffect(() => {
     switch (task.catagory) {
@@ -49,6 +51,20 @@ function TaskItem({ task, toggleTest }) {
     };
     fetchAPI();
   }, [toggle]);
+
+  const handleDelete = (e) => {
+    const options = {
+      headers: {
+        "X-auth-token": localStorage.getItem("auth-token"),
+      },
+    };
+    Axios.delete(`/todos/${task._id}`, options).then((response) => {
+      const newData = tasks.filter((item) => {
+        return item._id !== response.data._id;
+      });
+      setTasks(newData);
+    });
+  };
 
   return (
     <div
@@ -109,7 +125,13 @@ function TaskItem({ task, toggleTest }) {
               </svg>
             </button>
             <div>
-              {modal && <DeleteModal onClick={deleteModal} task={task} />}
+              {modal && (
+                <DeleteModal
+                  onClick={deleteModal}
+                  task={task}
+                  handleDelete={handleDelete}
+                />
+              )}
             </div>
           </div>
         </div>

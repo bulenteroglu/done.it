@@ -1,25 +1,7 @@
 import React, { useState } from "react";
 import Axios from "axios";
 
-function DeleteModal({ onClick, task }) {
-  const [error, setError] = useState();
-
-  const handleDelete = async (e) => {
-    try {
-      const options = {
-        headers: {
-          "X-auth-token": localStorage.getItem("auth-token"),
-        },
-      };
-      await Axios.delete(`/todos/${task._id}`, options);
-
-      onClick();
-      window.location.reload(false);
-    } catch (error) {
-      error.response.data.msg && setError(error.response.data.msg);
-    }
-  };
-
+function DeleteModal({ onClick, task, handleDelete }) {
   return (
     <div
       style={{ backgroundColor: "rgba(0,0,0,.5)" }}

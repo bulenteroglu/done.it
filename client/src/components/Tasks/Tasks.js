@@ -164,6 +164,8 @@ function Tasks() {
             toggleTest={task.done}
             setDone={setDone}
             done={done}
+            setTasks={setTasks}
+            tasks={tasks}
           />
         ))}
       </div>
