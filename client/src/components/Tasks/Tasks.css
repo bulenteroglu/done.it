@@ -5,3 +5,15 @@
 .bar {
   background: linear-gradient(to bottom right, #2b96e9, #d4aef6);
 }
+
+.scrollBar::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 8px;
+
+  background-color: #2c5282;
+}
+
+.scrollBar::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #2a4365;
+}

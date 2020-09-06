@@ -64,7 +64,7 @@ function Login() {
 
         <div className="bg-white text-black flex flex-col lg:min-h-screen lg:w-full lg:justify-center lg:items-center">
           {error && (
-            <div className="mx-6">
+            <div className="mx-6 lg:w-full lg:px-64">
               <ErrorNotification
                 message={error}
                 clearError={() => setError(undefined)}

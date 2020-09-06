@@ -103,7 +103,7 @@ function Tasks() {
 
   return (
     <div className="bg-gradient-to-b from-blue-900 to-blue-600  flex flex-col h-screen text-white">
-      <div className="m-6 ">
+      <div className="m-6">
         <Link to="/dashboard">
           <svg
             className="fill-current w-4"
@@ -114,10 +114,10 @@ function Tasks() {
           </svg>
         </Link>
       </div>
-      <div className="mx-6 mt-5 flex items-center justify-between">
-        <div className="text-sm tracking-tighter">
+      <div className="mx-6 mt-5 flex items-center justify-between lg:mx-64">
+        <div className="text-sm tracking-tighter lg:text-3xl">
           <Moment format="ddd DD, yyyy">{date}</Moment>
-          <div className="font-extrabold text-xl">
+          <div className="font-extrabold text-xl lg:text-4xl">
             {timeText ? timeText : <Moment fromNow>{date}</Moment>}
           </div>
         </div>
@@ -137,7 +137,7 @@ function Tasks() {
           </button>
         </div>
       </div>
-      <div className="my-6">
+      <div className="my-6 lg:mx-64">
         <DatePicker
           getSelectedDay={selectedDay}
           endDate={100}
@@ -156,19 +156,22 @@ function Tasks() {
         </div>
       </div> */}
 
-      <div className="overflow-y-auto">
-        {tasks.map((task) => (
-          <TaskItem
-            task={task}
-            key={task._id}
-            toggleTest={task.done}
-            setDone={setDone}
-            done={done}
-            setTasks={setTasks}
-            tasks={tasks}
-          />
-        ))}
+      <div className="lg:mx-64 lg:h-full overflow-y-auto lg:overflow-x-hidden scrollBar">
+        <div className="lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:mx-auto">
+          {tasks.map((task) => (
+            <TaskItem
+              task={task}
+              key={task._id}
+              toggleTest={task.done}
+              setDone={setDone}
+              done={done}
+              setTasks={setTasks}
+              tasks={tasks}
+            />
+          ))}
+        </div>
       </div>
+
       {modal && <Modal onClick={onClick} />}
     </div>
   );

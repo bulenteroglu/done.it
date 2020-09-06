@@ -104,25 +104,25 @@ function Dashboard() {
     <div className="flex flex-col h-screen bg-gradient-to-b from-blue-900 to-blue-600">
       <div className="mx-6">
         <div className="flex justify-center mt-12 mx-6">
-          <div className="uppercase text-sm font-semibold tracking-widest text-white">
+          <div className="uppercase text-sm lg:text-lg font-semibold tracking-widest text-white">
             Profile
           </div>
         </div>
         <div className="flex justify-center">
-          <div className="flex justify-center rounded-full h-24 w-24 bg-blue-900 mt-12 items-center uppercase text-white font-semibold text-5xl border-2 border-white">
-            <div className="">
+          <div className="flex justify-center rounded-full h-24 w-24 lg:h-40 lg:w-40 bg-blue-900 mt-12 items-center uppercase text-white font-semibold text-5xl border-2 border-white">
+            <div className="lg:text-5xl">
               {userData.user && userData.user.username.charAt(0)}
             </div>
           </div>
         </div>
         <div className="flex justify-center">
-          <div className="mt-10 text-white text-2xl capitalize">
+          <div className="mt-10 text-white text-2xl lg:text-4xl capitalize">
             {userData.user && userData.user.username}
           </div>
         </div>
         <div className="flex justify-center mt-12 items-center">
           <div className="flex flex-col">
-            <div className="uppercase text-white text-xs font-semibold tracking-widest">
+            <div className="uppercase text-white text-xs lg:text-lg font-semibold tracking-widest">
               tasks completed
             </div>
 
@@ -134,10 +134,10 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col mt-20 tracking-tight font-medium">
+        <div className="flex flex-col mt-20 tracking-tight font-medium lg:mx-64 lg:items-center">
           <Link to="/tasks">
-            <div className="bg-white rounded w-full flex justify-between items-center py-4 px-5">
-              <div className="text-sm">Tasks</div>
+            <div className="bg-white rounded w-full lg:w-64 flex justify-between items-center py-4 px-5">
+              <div className="text-sm lg:text-xl">Tasks</div>
               <div>
                 <svg
                   className="w-4 fill-current"
@@ -149,8 +149,8 @@ function Dashboard() {
               </div>
             </div>
           </Link>
-          <div className="bg-white rounded w-full flex justify-between items-center py-4 px-5 mt-2">
-            <div className="text-sm">Statistic</div>
+          <div className="bg-white rounded w-full lg:w-64 flex justify-between items-center py-4 px-5 mt-2">
+            <div className="text-sm lg:text-xl">Statistic</div>
             <div>
               <svg
                 className="w-4 fill-current"
@@ -161,8 +161,8 @@ function Dashboard() {
               </svg>
             </div>
           </div>
-          <div className="bg-white rounded w-full flex justify-between items-center py-4 px-5 mt-2">
-            <div className="text-sm">Edit Profile</div>
+          <div className="bg-white rounded w-full lg:w-64 flex justify-between items-center py-4 px-5 mt-2">
+            <div className="text-sm lg:text-xl">Edit Profile</div>
             <div>
               <svg
                 className="w-4 fill-current"
@@ -175,9 +175,9 @@ function Dashboard() {
           </div>
           <button
             onClick={handleSignOut}
-            className="bg-white rounded w-full flex justify-between items-center py-4 px-5 mt-2"
+            className="bg-white rounded w-full lg:w-64 flex justify-between items-center py-4 px-5 mt-2"
           >
-            <div className="text-sm text-red-600">Sign Out</div>
+            <div className="text-sm lg:text-xl text-red-600">Sign Out</div>
             <div>
               <svg
                 className="w-4 fill-current"
