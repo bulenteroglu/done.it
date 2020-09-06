@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import "./Tasks.css";
-import UserContext from "../../context/UserContext";
-import { useHistory, Link } from "react-router-dom";
-import Modal from "../Modal/Modal";
-import TaskItem from "../Tasks/TaskItem";
-import Axios from "axios";
-import Moment from "react-moment";
-import DatePicker from "react-horizontal-datepicker";
-import moment from "moment";
+import React, { useContext, useEffect, useState } from 'react';
+import './Tasks.css';
+import UserContext from '../../context/UserContext';
+import { useHistory, Link } from 'react-router-dom';
+import Modal from '../Modal/Modal';
+import TaskItem from '../Tasks/TaskItem';
+import Axios from 'axios';
+import Moment from 'react-moment';
+import DatePicker from 'react-horizontal-datepicker';
+import moment from 'moment';
 
 function Tasks() {
   const { userData, setUserData } = useContext(UserContext);
@@ -44,12 +44,12 @@ function Tasks() {
     let a = moment(val);
     let b = moment(Date.now());
 
-    let c = a.diff(b, "hours");
+    let c = a.diff(b, 'hours');
 
     if (c <= 0) {
-      setTimeText("Today");
+      setTimeText('Today');
     } else if (c < 24 && c >= 1) {
-      setTimeText("Tomorrow");
+      setTimeText('Tomorrow');
     } else {
       setTimeText(undefined);
     }
@@ -58,13 +58,13 @@ function Tasks() {
   const callAPI = () => {
     try {
       const fetchAPI = async () => {
-        const body = { date: moment(date).format("MMMM Do YYYY") };
+        const body = { date: moment(date).format('MMMM Do YYYY') };
 
         const api = {
-          "X-auth-token": localStorage.getItem("auth-token"),
+          'X-auth-token': localStorage.getItem('auth-token'),
         };
 
-        const response = await Axios.put("todos/date", body, {
+        const response = await Axios.put('todos/date', body, {
           headers: api,
         });
 
@@ -83,13 +83,13 @@ function Tasks() {
 
     try {
       const fetchAPI = async () => {
-        const body = { date: moment(val).format("MMMM Do YYYY") };
+        const body = { date: moment(val).format('MMMM Do YYYY') };
 
         const api = {
-          "X-auth-token": localStorage.getItem("auth-token"),
+          'X-auth-token': localStorage.getItem('auth-token'),
         };
 
-        const response = await Axios.put("todos/date", body, {
+        const response = await Axios.put('todos/date', body, {
           headers: api,
         });
         setTasks(response.data);
@@ -102,48 +102,48 @@ function Tasks() {
   };
 
   return (
-    <div className="bg-gradient-to-b from-blue-900 to-blue-600  flex flex-col h-screen text-white">
-      <div className="m-6">
-        <Link to="/dashboard">
+    <div className='bg-gradient-to-b from-blue-700 to-blue-900  flex flex-col h-screen text-white'>
+      <div className='m-6'>
+        <Link to='/dashboard'>
           <svg
-            className="fill-current w-4"
-            id="icon-chevron-left"
-            viewBox="0 0 21 28"
+            className='fill-current w-4'
+            id='icon-chevron-left'
+            viewBox='0 0 21 28'
           >
-            <path d="M18.297 4.703l-8.297 8.297 8.297 8.297c0.391 0.391 0.391 1.016 0 1.406l-2.594 2.594c-0.391 0.391-1.016 0.391-1.406 0l-11.594-11.594c-0.391-0.391-0.391-1.016 0-1.406l11.594-11.594c0.391-0.391 1.016-0.391 1.406 0l2.594 2.594c0.391 0.391 0.391 1.016 0 1.406z"></path>
+            <path d='M18.297 4.703l-8.297 8.297 8.297 8.297c0.391 0.391 0.391 1.016 0 1.406l-2.594 2.594c-0.391 0.391-1.016 0.391-1.406 0l-11.594-11.594c-0.391-0.391-0.391-1.016 0-1.406l11.594-11.594c0.391-0.391 1.016-0.391 1.406 0l2.594 2.594c0.391 0.391 0.391 1.016 0 1.406z'></path>
           </svg>
         </Link>
       </div>
-      <div className="mx-6 mt-5 flex items-center justify-between lg:mx-64">
-        <div className="text-sm tracking-tighter lg:text-3xl">
-          <Moment format="ddd DD, yyyy">{date}</Moment>
-          <div className="font-extrabold text-xl lg:text-4xl">
+      <div className='mx-6 mt-5 flex items-center justify-between lg:mx-64'>
+        <div className='text-sm tracking-tighter lg:text-3xl'>
+          <Moment format='ddd DD, yyyy'>{date}</Moment>
+          <div className='font-extrabold text-xl lg:text-4xl'>
             {timeText ? timeText : <Moment fromNow>{date}</Moment>}
           </div>
         </div>
         <div>
           <button
             onClick={onClick}
-            className="flex items-center bg-blue-600 text-white py-1 px-3 text-sm rounded-lg focus:outline-none"
+            className='flex items-center bg-blue-600 text-white py-1 px-3 text-sm rounded-lg focus:outline-none'
           >
             <svg
-              className="mt-2 w-8 fill-current"
-              id="icon-plus"
-              viewBox="0 0 32 32"
+              className='mt-2 w-8 fill-current'
+              id='icon-plus'
+              viewBox='0 0 32 32'
             >
-              <path d="M18.984 12.984h-6v6h-1.969v-6h-6v-1.969h6v-6h1.969v6h6v1.969z"></path>
+              <path d='M18.984 12.984h-6v6h-1.969v-6h-6v-1.969h6v-6h1.969v6h6v1.969z'></path>
             </svg>
             Add task
           </button>
         </div>
       </div>
-      <div className="my-6 lg:mx-64">
+      <div className='my-6 lg:mx-64'>
         <DatePicker
           getSelectedDay={selectedDay}
           endDate={100}
           selectDate={date}
-          labelFormat={"MMMM"}
-          color={"#374e8c"}
+          labelFormat={'MMMM'}
+          color={'#374e8c'}
         />
       </div>
       {/* <div className="mx-6 text-sm font-bold mb-2 -mt-4">
@@ -156,8 +156,8 @@ function Tasks() {
         </div>
       </div> */}
 
-      <div className="lg:mx-64 lg:h-full overflow-y-auto lg:overflow-x-hidden scrollBar">
-        <div className="lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:mx-auto">
+      <div className='lg:mx-64 lg:h-full overflow-y-auto lg:overflow-x-hidden scrollBar'>
+        <div className='lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:mx-auto'>
           {tasks.map((task) => (
             <TaskItem
               task={task}
